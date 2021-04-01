@@ -1,0 +1,111 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<title>背个X anki版</title>
+	<meta charset="utf-8">
+	<style>
+		html, body{
+			height:100%;
+		}
+		.card {
+			font-family: arial;
+			text-align: center;
+			color: #333;
+			background-color: white;
+			position: relative;
+			overflow: hidden;
+			height: 100%;
+			font-size:20px;
+		}
+		.article {
+			position: absolute; 
+			width: 100%;
+			height: 100%;
+			overflow: auto;
+		}
+		#content{
+			text-align: left;
+		}
+		.opt{
+			position: absolute;
+			bottom:40px;
+			right: 20px;
+		}
+		.opt span {
+			padding: 8px 18px;
+			background: #fff;
+			color: #4caf50;
+			cursor: pointer;
+			border: 1px solid #4caf50;
+		}
+		.opt span.on {
+			background: #4caf50;
+			color: #fff;
+		}
+
+		@media screen and (max-width: 640px){
+			.opt {
+				font-size:14px;
+				right:0;
+			}
+			.opt span {
+				padding: 5px 10px;
+			}
+		}
+	</style>
+</head>
+<body>
+	<div class="card">
+		<div class="article">
+			<h1>中文测试</h1>
+			<div id="content">	
+			大学之道，在明明德，在亲民，在止于至善。知止而后有定，定而后能静，静而后能安，安而后能虑，虑而后能得。物有本末，事有终始。知所先后，则近道矣。古之欲明明德于天下者，先治其国；欲治其国者，先齐其家；欲齐其家者，先修其身；欲修其身者，先正其心；欲正其心者，	先诚其意；欲诚其意者，先致其知。致知在格物。物格而后知至，知至而后意诚，意诚而后心正，心正而后身修，身修而后家齐，家齐而后国治，国治而后天下平。自天子以至于庶人，壹是皆以修身为本。其本乱而末治者，否矣。其所厚者薄，而其所薄者厚，未之有也。
+			</div>
+		</div>
+		<div class="opt">
+			<span onClick="showText(1)" class="opt-item item-1 on">模式1</span>
+			<span onClick="showText(2)" class="opt-item item-2">模式2</span>
+			<span onClick="showText(0)" class="opt-item item-0">原文</span>
+		</div>
+	</div>
+	<script>
+		var contentObj = document.getElementById("content")
+		var contentStr = document.getElementById("content").innerHTML
+		var blankStr = '_'
+		var pattern = 
+		/[0-9a-zA-Z\s\u3002|\uff1f|\uff01|\uff0c|\u3001|\uff1b|\uff1a|\u201c|\u201d|\u2018|\u2019|\uff08|\uff09|\u300a|\u300b|\u3008|\u3009|\u3010|\u3011|\u300e|\u300f|\u300c|\u300d|\ufe43|\ufe44|\u3014|\u3015|\u2026|\u2014|\uff5e|\ufe4f|\uffe5|\>|\<|\/|\.|\,]/
+		var strList = [contentStr, '', '']
+		var skipCharNum = 0
+		var blankNum = -1
+		for (let i = 0; i < contentStr.length; i++) {
+			let num = blankNum == -1 ? Math.ceil(3 * Math.random()) : blankNum + 1
+			let isBlank = (i - skipCharNum) % num
+			let currentChar = contentStr.charAt(i)
+			if (pattern.test(contentStr[i])) {
+				strList[1] += currentChar
+				strList[2] += currentChar
+				skipCharNum++
+			} else if (isBlank) {
+				strList[1] += currentChar
+				strList[2] += blankStr
+			} else {
+				strList[1] += blankStr
+				strList[2] += currentChar
+			}
+		}
+		function showText(mode) {
+			var classObjList = document.getElementsByClassName("opt-item");
+			for (i = 0; i < classObjList.length; i++) {
+				let classObj = classObjList[i]
+				if (classObj.classList.contains('item-'+mode)) {
+					classObj.classList.add('on')
+				} else {
+					classObj.classList.remove('on')
+				}
+			}
+			contentObj.innerHTML = strList[mode]
+		}
+		showText(1)
+	</script>
+</body>
+</html>
