@@ -5,6 +5,6 @@
 默认为随机模式，可以自己修改间隔数
 
 ## Screenshots
- <img src="./screenshots/1.jpg" width="300" style="float:left;" alt="模式一"/>
- <img src="./screenshots/2.jpg" width="300" style="float:left;" alt="模式二"/>
- <img src="./screenshots/3.jpg" width="300" style="float:left;" alt="模式全文"/>
+ <img src="./screenshots/1.jpg" width="30%" align="left" alt="模式一"/>
+ <img src="./screenshots/2.jpg" width="30%" align="left" alt="模式二"/>
+ <img src="./screenshots/3.jpg" width="30%" align="left" alt="模式全文"/>
